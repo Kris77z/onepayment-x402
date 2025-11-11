@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm-cache/
+
+# OS metadata
+.DS_Store
+
+# Env files
+.env
+.env.local
+
+# Build artifacts
+dist/
+.next/
+out/
+
+# Docs (保持本地不上传)
+docs/
+
