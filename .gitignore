@@ -23,3 +23,6 @@ out/
 # Docs (保持本地不上传)
 docs/
 
+# Local test keys
+test-client-keypair.json
+
