@@ -75,6 +75,9 @@ coverage/
 # Documentation (exclude entire docs directory)
 docs/
 
+# Reference implementations (exclude reference directory)
+reference/
+
 # Package manager lock files (project uses npm)
 pnpm-lock.yaml
 yarn.lock
