@@ -998,51 +998,422 @@
     }
   },
   {
-    "id": "psess_344bfebb-bd99-4f7f-ac48-112b50f63f8e",
-    "amount": 10000000,
+    "id": "psess_8009f7b0-c223-417a-8c21-8df6342ebd2a",
+    "amount": 1000000,
     "currency": "USDC",
-    "memo": "auto-session-1762835507616",
+    "memo": "auto-session-1763031898787",
     "facilitatorUrl": "http://localhost:3001",
-    "merchantAddress": "3sBX6RNnBa29rzVbrQw3p1RPKzyCaBUSyuneKspB9vhr",
-    "nonce": "5ff751deeee6338f5ed91f2e599364c8",
-    "status": "pending",
-    "createdAt": "2025-11-11T04:31:47.623Z",
-    "updatedAt": "2025-11-11T04:31:47.623Z",
-    "expiresAt": "2025-11-11T04:36:47.623Z",
+    "merchantAddress": "BKkp1P7iEFo5nxW2FNcZovjtQjssHC2L7C9r9VKzqvbK",
+    "nonce": "96ffb41f19a3a808928d269f5215c351",
+    "status": "failed",
+    "createdAt": "2025-11-13T11:04:58.790Z",
+    "updatedAt": "2025-11-14T02:06:55.700Z",
+    "expiresAt": "2025-11-13T11:09:58.790Z",
     "quote": {
-      "id": "pquote_ad19604a-afe7-4ef5-93b9-54d95cc4e9bb",
+      "id": "pquote_64e7c501-c078-41e4-ba98-198130956684",
       "currency": "USDC",
-      "rate": 1.0001,
-      "rateSource": "switchboard",
-      "quotedAmountUsd": 10.001,
-      "quoteExpiresAt": "2025-11-11T04:32:17.601Z",
-      "fetchedAt": "2025-11-11T04:31:45.000Z",
+      "rate": 1,
+      "rateSource": "manual",
+      "quotedAmountUsd": 1,
+      "quoteExpiresAt": "2025-11-13T11:05:28.776Z",
+      "fetchedAt": "2025-11-13T11:04:58.776Z",
       "feedId": "883ea8295f70ae506e894679d124196bb07064ea530cefd835b58c33a5ab6549",
-      "slot": 420755687
+      "slot": null
     },
     "rateSnapshot": {
-      "id": "pquote_ad19604a-afe7-4ef5-93b9-54d95cc4e9bb",
+      "id": "pquote_64e7c501-c078-41e4-ba98-198130956684",
       "currency": "USDC",
-      "rate": 1.0001,
-      "rateSource": "switchboard",
-      "quotedAmountUsd": 10.001,
-      "quoteExpiresAt": "2025-11-11T04:32:17.601Z",
-      "fetchedAt": "2025-11-11T04:31:45.000Z",
+      "rate": 1,
+      "rateSource": "manual",
+      "quotedAmountUsd": 1,
+      "quoteExpiresAt": "2025-11-13T11:05:28.776Z",
+      "fetchedAt": "2025-11-13T11:04:58.776Z",
       "feedId": "883ea8295f70ae506e894679d124196bb07064ea530cefd835b58c33a5ab6549",
-      "slot": 420755687
+      "slot": null
     },
     "originalRequest": {
-      "amount": 10000000,
+      "amount": 1000000,
       "currency": "USDC",
-      "memo": "auto-session-1762835507616",
-      "quoteId": "pquote_ad19604a-afe7-4ef5-93b9-54d95cc4e9bb"
+      "memo": "auto-session-1763031898787",
+      "quoteId": "pquote_64e7c501-c078-41e4-ba98-198130956684"
     },
     "auditLog": [
       {
-        "timestamp": "2025-11-11T04:31:47.623Z",
+        "timestamp": "2025-11-13T11:04:58.790Z",
+        "message": "Payment session created",
+        "level": "info"
+      },
+      {
+        "timestamp": "2025-11-13T11:05:01.583Z",
+        "message": "Payment request recorded",
+        "level": "info"
+      },
+      {
+        "timestamp": "2025-11-13T11:05:01.683Z",
+        "message": "Payment session marked as failed",
+        "level": "error",
+        "data": {
+          "reason": "签名验证失败"
+        }
+      },
+      {
+        "timestamp": "2025-11-14T02:06:55.444Z",
+        "message": "Payment request recorded",
+        "level": "info"
+      },
+      {
+        "timestamp": "2025-11-14T02:06:55.700Z",
+        "message": "Payment session marked as failed",
+        "level": "error",
+        "data": {
+          "reason": "支付请求已过期"
+        }
+      }
+    ],
+    "paymentRequest": {
+      "raw": "{\"payload\":{\"amount\":\"1000000\",\"recipient\":\"BKkp1P7iEFo5nxW2FNcZovjtQjssHC2L7C9r9VKzqvbK\",\"resourceId\":\"http://localhost:3000/api/premium-data\",\"resourceUrl\":\"http://localhost:3000/api/premium-data\",\"nonce\":\"96ffb41f19a3a808928d269f5215c351\",\"timestamp\":1763031900725,\"expiry\":1763035500725},\"signature\":\"5QrdYYU7qn2WYQDUxJauJyAJvFGhST1tTRFtvsxN2tGDpswgRhUS6awigkD1gmY9pN2QJ8ZN2xrVTxajegeTf3Hs\",\"clientPublicKey\":\"BqsZxG57qYVohjWCh82ES3ysHaTURYGL1zhQ4CbuyfHf\",\"signedTransaction\":\"AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA29rF+Hpr5zrCOVW4nvIua8DBnogivsK7XlYq+9KXdfvsDlOczqh57Droc6xHNDaMx84wo1BUL+85G+kS2H2AKAgABBDIt8AL9DugtFQPxp6edCaGN1tcWxE/B6X8RJWkGbZS4oRns+gAnqMbVdU2yh8rDEMMFBmeZPghNW9mCsMto9Z6ZYtxHwLN1NWexGZmjQXITw1WFWOWD1ygMUJhjLMWligAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcVC4fSzL5COxnyXMRsw/4zpJsne38kwbSWB21eDoVKIBAwIBAgwCAAAAQEIPAAAAAAA=\"}",
+      "recordedAt": "2025-11-14T02:06:55.444Z"
+    },
+    "failureReason": "支付请求已过期"
+  },
+  {
+    "id": "psess_fcc2c740-ef9b-4471-ae53-87b282bd16e1",
+    "amount": 1000000,
+    "currency": "USDC",
+    "memo": "auto-session-1763085983941",
+    "facilitatorUrl": "http://localhost:3001",
+    "merchantAddress": "BKkp1P7iEFo5nxW2FNcZovjtQjssHC2L7C9r9VKzqvbK",
+    "nonce": "2f8c02d85549f36d233bd1fd420348a6",
+    "status": "pending",
+    "createdAt": "2025-11-14T02:06:23.979Z",
+    "updatedAt": "2025-11-14T02:06:23.979Z",
+    "expiresAt": "2025-11-14T02:11:23.979Z",
+    "quote": {
+      "id": "pquote_6b08fec0-f774-4b12-a5bc-0a5e4d434b17",
+      "currency": "USDC",
+      "rate": 1.0002,
+      "rateSource": "switchboard",
+      "quotedAmountUsd": 1.0002,
+      "quoteExpiresAt": "2025-11-14T02:06:53.928Z",
+      "fetchedAt": "2025-11-14T02:06:21.000Z",
+      "feedId": "883ea8295f70ae506e894679d124196bb07064ea530cefd835b58c33a5ab6549",
+      "slot": 421406050
+    },
+    "rateSnapshot": {
+      "id": "pquote_6b08fec0-f774-4b12-a5bc-0a5e4d434b17",
+      "currency": "USDC",
+      "rate": 1.0002,
+      "rateSource": "switchboard",
+      "quotedAmountUsd": 1.0002,
+      "quoteExpiresAt": "2025-11-14T02:06:53.928Z",
+      "fetchedAt": "2025-11-14T02:06:21.000Z",
+      "feedId": "883ea8295f70ae506e894679d124196bb07064ea530cefd835b58c33a5ab6549",
+      "slot": 421406050
+    },
+    "originalRequest": {
+      "amount": 1000000,
+      "currency": "USDC",
+      "memo": "auto-session-1763085983941",
+      "quoteId": "pquote_6b08fec0-f774-4b12-a5bc-0a5e4d434b17"
+    },
+    "auditLog": [
+      {
+        "timestamp": "2025-11-14T02:06:23.979Z",
         "message": "Payment session created",
         "level": "info"
       }
     ]
+  },
+  {
+    "id": "psess_8e62c695-e3ab-46f1-8caa-92bf014b1bca",
+    "amount": 1000000,
+    "currency": "USDC",
+    "memo": "auto-session-1763086028338",
+    "facilitatorUrl": "http://localhost:3001",
+    "merchantAddress": "BKkp1P7iEFo5nxW2FNcZovjtQjssHC2L7C9r9VKzqvbK",
+    "nonce": "a151216fab0a37c5cdbc51b82bb5159f",
+    "status": "settled",
+    "createdAt": "2025-11-14T02:07:08.342Z",
+    "updatedAt": "2025-11-14T02:07:13.023Z",
+    "expiresAt": "2025-11-14T02:12:08.342Z",
+    "quote": {
+      "id": "pquote_0e063ded-ed2b-41ab-9e08-7ef43590d258",
+      "currency": "USDC",
+      "rate": 1.0002,
+      "rateSource": "switchboard",
+      "quotedAmountUsd": 1.0002,
+      "quoteExpiresAt": "2025-11-14T02:07:38.329Z",
+      "fetchedAt": "2025-11-14T02:07:05.000Z",
+      "feedId": "883ea8295f70ae506e894679d124196bb07064ea530cefd835b58c33a5ab6549",
+      "slot": 421406166
+    },
+    "rateSnapshot": {
+      "id": "pquote_0e063ded-ed2b-41ab-9e08-7ef43590d258",
+      "currency": "USDC",
+      "rate": 1.0002,
+      "rateSource": "switchboard",
+      "quotedAmountUsd": 1.0002,
+      "quoteExpiresAt": "2025-11-14T02:07:38.329Z",
+      "fetchedAt": "2025-11-14T02:07:05.000Z",
+      "feedId": "883ea8295f70ae506e894679d124196bb07064ea530cefd835b58c33a5ab6549",
+      "slot": 421406166
+    },
+    "originalRequest": {
+      "amount": 1000000,
+      "currency": "USDC",
+      "memo": "auto-session-1763086028338",
+      "quoteId": "pquote_0e063ded-ed2b-41ab-9e08-7ef43590d258"
+    },
+    "auditLog": [
+      {
+        "timestamp": "2025-11-14T02:07:08.342Z",
+        "message": "Payment session created",
+        "level": "info"
+      },
+      {
+        "timestamp": "2025-11-14T02:07:10.409Z",
+        "message": "Payment request recorded",
+        "level": "info"
+      },
+      {
+        "timestamp": "2025-11-14T02:07:13.023Z",
+        "message": "Payment session settled",
+        "level": "info",
+        "data": {
+          "transactionSignature": "45Y5TkFTXGFuHZofQwcC87BXHEkeafeRv4qUk2DZmZ6snwZFSAcC4UVDThEqJhMErUXcJPyCCnMbnGC2Jk9egYJg",
+          "commissionAmount": 50000,
+          "netAmount": 950000,
+          "commissionStatus": "failed"
+        }
+      }
+    ],
+    "paymentRequest": {
+      "raw": "{\"payload\":{\"amount\":\"1000000\",\"recipient\":\"BKkp1P7iEFo5nxW2FNcZovjtQjssHC2L7C9r9VKzqvbK\",\"resourceId\":\"http://localhost:3000/api/premium-data\",\"resourceUrl\":\"http://localhost:3000/api/premium-data\",\"nonce\":\"a151216fab0a37c5cdbc51b82bb5159f\",\"timestamp\":1763086029464,\"expiry\":1763089629464},\"signature\":\"5WjGWSfkiZhsU45at3FJPM2kpDyWFcr7vejtNsRcMMgspTqbNJWbHMGbYa3kBAeMF15ajgAxpqCMd5p9svkHPocF\",\"clientPublicKey\":\"BqsZxG57qYVohjWCh82ES3ysHaTURYGL1zhQ4CbuyfHf\",\"signedTransaction\":\"AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABsoon0z3y7gnqECUcp9tV7ngZPSVQFlXNzLNHYevkMLbTSVUBRRSWL2e4R98EBQAwQfmyXr0ytHC/G6lkHC6cFAgABBDIt8AL9DugtFQPxp6edCaGN1tcWxE/B6X8RJWkGbZS4oRns+gAnqMbVdU2yh8rDEMMFBmeZPghNW9mCsMto9Z6ZYtxHwLN1NWexGZmjQXITw1WFWOWD1ygMUJhjLMWligAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAF8eJ/FBnTEmWqdt59q0grL39UEQGap3/XROLJksIJqQBAwIBAgwCAAAAQEIPAAAAAAA=\"}",
+      "recordedAt": "2025-11-14T02:07:10.409Z"
+    },
+    "transactionSignature": "45Y5TkFTXGFuHZofQwcC87BXHEkeafeRv4qUk2DZmZ6snwZFSAcC4UVDThEqJhMErUXcJPyCCnMbnGC2Jk9egYJg",
+    "settlement": {
+      "settledAt": "2025-11-14T02:07:13.023Z",
+      "transactionSignature": "45Y5TkFTXGFuHZofQwcC87BXHEkeafeRv4qUk2DZmZ6snwZFSAcC4UVDThEqJhMErUXcJPyCCnMbnGC2Jk9egYJg",
+      "totalAmount": 1000000,
+      "commissionBps": 500,
+      "commissionAmount": 50000,
+      "netAmount": 950000,
+      "commissionRecipient": {
+        "gridAccountId": "Fwz1CX3AEbk3rfhRqxQ9AuhxzdbLRrMYtMLj7WXtViJK",
+        "solanaAddress": "Fwz1CX3AEbk3rfhRqxQ9AuhxzdbLRrMYtMLj7WXtViJK"
+      },
+      "merchantRecipient": {
+        "gridAccountId": "BKkp1P7iEFo5nxW2FNcZovjtQjssHC2L7C9r9VKzqvbK",
+        "solanaAddress": "BKkp1P7iEFo5nxW2FNcZovjtQjssHC2L7C9r9VKzqvbK"
+      },
+      "commissionTransfer": {
+        "status": "failed",
+        "amount": 50000,
+        "currency": "USDC",
+        "destination": {
+          "gridAccountId": "Fwz1CX3AEbk3rfhRqxQ9AuhxzdbLRrMYtMLj7WXtViJK",
+          "solanaAddress": "Fwz1CX3AEbk3rfhRqxQ9AuhxzdbLRrMYtMLj7WXtViJK"
+        },
+        "attempts": [
+          {
+            "attemptId": "cta_38bf6061-70cc-4bad-af59-dd46feaeefaf",
+            "status": "failed",
+            "requestedAt": "2025-11-14T02:07:13.023Z",
+            "errorMessage": "GRID_API_KEY is not configured; cannot create payment intent"
+          }
+        ],
+        "latestError": "GRID_API_KEY is not configured; cannot create payment intent",
+        "retryAvailable": true,
+        "intentSnapshot": null
+      },
+      "rateSnapshot": {
+        "id": "pquote_0e063ded-ed2b-41ab-9e08-7ef43590d258",
+        "currency": "USDC",
+        "rate": 1.0002,
+        "rateSource": "switchboard",
+        "quotedAmountUsd": 1.0002,
+        "quoteExpiresAt": "2025-11-14T02:07:38.329Z",
+        "fetchedAt": "2025-11-14T02:07:05.000Z",
+        "feedId": "883ea8295f70ae506e894679d124196bb07064ea530cefd835b58c33a5ab6549",
+        "slot": 421406166
+      },
+      "explorerUrl": "https://solscan.io/tx/45Y5TkFTXGFuHZofQwcC87BXHEkeafeRv4qUk2DZmZ6snwZFSAcC4UVDThEqJhMErUXcJPyCCnMbnGC2Jk9egYJg?cluster=devnet",
+      "settlementLog": [
+        {
+          "timestamp": "2025-11-14T02:07:13.023Z",
+          "message": "Facilitator settlement confirmed",
+          "level": "info",
+          "data": {
+            "transactionSignature": "45Y5TkFTXGFuHZofQwcC87BXHEkeafeRv4qUk2DZmZ6snwZFSAcC4UVDThEqJhMErUXcJPyCCnMbnGC2Jk9egYJg"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "psess_ac4488a3-1f37-4eab-8910-9372906515be",
+    "amount": 1000000,
+    "currency": "USDC",
+    "memo": "auto-session-1763086081405",
+    "facilitatorUrl": "http://localhost:3001",
+    "merchantAddress": "BKkp1P7iEFo5nxW2FNcZovjtQjssHC2L7C9r9VKzqvbK",
+    "nonce": "1a8035b3787f263f363b05298ca19c86",
+    "status": "settled",
+    "createdAt": "2025-11-14T02:08:01.409Z",
+    "updatedAt": "2025-11-14T02:08:05.583Z",
+    "expiresAt": "2025-11-14T02:13:01.409Z",
+    "quote": {
+      "id": "pquote_15ccc033-7d9a-46c0-8dad-7332e18e8705",
+      "currency": "USDC",
+      "rate": 1,
+      "rateSource": "manual",
+      "quotedAmountUsd": 1,
+      "quoteExpiresAt": "2025-11-14T02:08:31.395Z",
+      "fetchedAt": "2025-11-14T02:08:01.395Z",
+      "feedId": "883ea8295f70ae506e894679d124196bb07064ea530cefd835b58c33a5ab6549",
+      "slot": null
+    },
+    "rateSnapshot": {
+      "id": "pquote_15ccc033-7d9a-46c0-8dad-7332e18e8705",
+      "currency": "USDC",
+      "rate": 1,
+      "rateSource": "manual",
+      "quotedAmountUsd": 1,
+      "quoteExpiresAt": "2025-11-14T02:08:31.395Z",
+      "fetchedAt": "2025-11-14T02:08:01.395Z",
+      "feedId": "883ea8295f70ae506e894679d124196bb07064ea530cefd835b58c33a5ab6549",
+      "slot": null
+    },
+    "originalRequest": {
+      "amount": 1000000,
+      "currency": "USDC",
+      "memo": "auto-session-1763086081405",
+      "quoteId": "pquote_15ccc033-7d9a-46c0-8dad-7332e18e8705"
+    },
+    "auditLog": [
+      {
+        "timestamp": "2025-11-14T02:08:01.409Z",
+        "message": "Payment session created",
+        "level": "info"
+      },
+      {
+        "timestamp": "2025-11-14T02:08:03.178Z",
+        "message": "Payment request recorded",
+        "level": "info"
+      },
+      {
+        "timestamp": "2025-11-14T02:08:05.583Z",
+        "message": "Payment session settled",
+        "level": "info",
+        "data": {
+          "transactionSignature": "1WspU7A2z2cE77UJqFNx9LatofjzY5GvD9nA4vMjWu2TuJhA9ctbkMXSbz7LvAHfCk22oUvw2GvEfJF31f4b9M",
+          "commissionAmount": 50000,
+          "netAmount": 950000,
+          "commissionStatus": "succeeded"
+        }
+      }
+    ],
+    "paymentRequest": {
+      "raw": "{\"payload\":{\"amount\":\"1000000\",\"recipient\":\"BKkp1P7iEFo5nxW2FNcZovjtQjssHC2L7C9r9VKzqvbK\",\"resourceId\":\"http://localhost:3000/api/premium-data\",\"resourceUrl\":\"http://localhost:3000/api/premium-data\",\"nonce\":\"1a8035b3787f263f363b05298ca19c86\",\"timestamp\":1763086082377,\"expiry\":1763089682377},\"signature\":\"4WviuFfHBxDV8FcdiJR6MVrJnwfYZizpwjJ1F4FJ9aYzDNraaXgpzKAQAWEQ3onfvY6jHfTVQLpkyqRpp45TGnm6\",\"clientPublicKey\":\"BqsZxG57qYVohjWCh82ES3ysHaTURYGL1zhQ4CbuyfHf\",\"signedTransaction\":\"AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAXpMMTGHh50T9cl4w2TEHhcfdMtJ/27CfjoP4F1hmogK+2IvCAAauzwqZoXE+g5cvdjbtS5C2rST0DzlkFYiENAgABBDIt8AL9DugtFQPxp6edCaGN1tcWxE/B6X8RJWkGbZS4oRns+gAnqMbVdU2yh8rDEMMFBmeZPghNW9mCsMto9Z6ZYtxHwLN1NWexGZmjQXITw1WFWOWD1ygMUJhjLMWligAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAdR+8nwYor6SCHC67RMMEYbf7GNGEfvWcp7Oeo0bppYEBAwIBAgwCAAAAQEIPAAAAAAA=\"}",
+      "recordedAt": "2025-11-14T02:08:03.178Z"
+    },
+    "transactionSignature": "1WspU7A2z2cE77UJqFNx9LatofjzY5GvD9nA4vMjWu2TuJhA9ctbkMXSbz7LvAHfCk22oUvw2GvEfJF31f4b9M",
+    "settlement": {
+      "settledAt": "2025-11-14T02:08:05.583Z",
+      "transactionSignature": "1WspU7A2z2cE77UJqFNx9LatofjzY5GvD9nA4vMjWu2TuJhA9ctbkMXSbz7LvAHfCk22oUvw2GvEfJF31f4b9M",
+      "totalAmount": 1000000,
+      "commissionBps": 500,
+      "commissionAmount": 50000,
+      "netAmount": 950000,
+      "commissionRecipient": {
+        "gridAccountId": "Fwz1CX3AEbk3rfhRqxQ9AuhxzdbLRrMYtMLj7WXtViJK",
+        "solanaAddress": "Fwz1CX3AEbk3rfhRqxQ9AuhxzdbLRrMYtMLj7WXtViJK"
+      },
+      "merchantRecipient": {
+        "gridAccountId": "BKkp1P7iEFo5nxW2FNcZovjtQjssHC2L7C9r9VKzqvbK",
+        "solanaAddress": "BKkp1P7iEFo5nxW2FNcZovjtQjssHC2L7C9r9VKzqvbK"
+      },
+      "commissionTransfer": {
+        "status": "succeeded",
+        "amount": 50000,
+        "currency": "USDC",
+        "destination": {
+          "gridAccountId": "Fwz1CX3AEbk3rfhRqxQ9AuhxzdbLRrMYtMLj7WXtViJK",
+          "solanaAddress": "Fwz1CX3AEbk3rfhRqxQ9AuhxzdbLRrMYtMLj7WXtViJK"
+        },
+        "attempts": [
+          {
+            "attemptId": "cta_837f723a-2d19-4d89-a39a-cb98bbd15f19",
+            "status": "succeeded",
+            "requestedAt": "2025-11-14T02:08:05.583Z",
+            "completedAt": "2025-11-14T02:08:08.440Z",
+            "gridTransferId": "d00f1ef4-cc35-45ec-bed1-d62173b20740",
+            "metadata": {
+              "paymentIntentId": "d00f1ef4-cc35-45ec-bed1-d62173b20740",
+              "transactionSigners": [
+                "CBH7QV7bBFCo8N3fEYNwzLwjx8M9M4TgkyAzLg5aBCan"
+              ],
+              "status": "awaiting_funds"
+            }
+          }
+        ],
+        "retryAvailable": false,
+        "intentSnapshot": {
+          "id": "d00f1ef4-cc35-45ec-bed1-d62173b20740",
+          "status": "awaiting_funds",
+          "transaction": "Ajc7Gyu83pn1yqa48JPDcK6q6qz00vbvelp94mF2pN1J3rCb2EHnZyuLi3fx70o3wcAuL6AVpAn2wZJL7koBHAoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAIBCQ1kOeZI0XvV8aC28zALEzH7Y52dhNHARMTutAmL4I/cDqYSlJUt5yIBmTmLy00w04+y4o8Po9sS96r2z/5Y+imTCfYQJXUdwA8w1XQmm4t7GvcvdLu38rym8I6Nn0du8VX7byO0Rv6Q+Gy2cxp5D6YwedCj39jZu6HwpC6N8u8tIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwZGb+UhFzL/7K26csOb57yM5bvF9xJrLEObOkAAAAAGfpx62lotJoPJMYMsMojaWpFLHPMIFmFC+wEBb/QcQQbd9uHXZaGT2cvhRs7reawctIXtX1s3kTqM9YV+/wCpO0Qss5EhV/E6kz0BNCgtAytf/s0Botvxt3kGCN8ALqdOsKQLjl6dKLNSXWYPjXNNzkstAsBtIwQFA5oS1feUmYyXJY9OJInxuz0QKRSODYMLWhOZ2v8QhASOe9jb6fhZmWLcR8CzdTVnsRmZo0FyE8NVhVjlg9coDFCYYyzFpYreGW9ESz9EXZN6/qEbljnSDzs8PC863mOCuVM9QhiCQI5feLaRRwmrCCmaFMSgQNaiRImOM9Iew3wbK5ELlcUbBAUABQLY1gAABQAJAwAAAAAAAAAACgYAAgwIBAcBAAYICQYBCwIDBwghK2b4WedhaIYAARMAAAABBAQDBQIBCgAMUMMAAAAAAAAGAA==",
+          "transactionSigners": [
+            "CBH7QV7bBFCo8N3fEYNwzLwjx8M9M4TgkyAzLg5aBCan"
+          ],
+          "kmsPayloads": [],
+          "createdAt": "2025-11-14T02:08:06.942847157Z",
+          "validUntil": "2025-11-14T02:09:36.942859771Z"
+        }
+      },
+      "rateSnapshot": {
+        "id": "pquote_15ccc033-7d9a-46c0-8dad-7332e18e8705",
+        "currency": "USDC",
+        "rate": 1,
+        "rateSource": "manual",
+        "quotedAmountUsd": 1,
+        "quoteExpiresAt": "2025-11-14T02:08:31.395Z",
+        "fetchedAt": "2025-11-14T02:08:01.395Z",
+        "feedId": "883ea8295f70ae506e894679d124196bb07064ea530cefd835b58c33a5ab6549",
+        "slot": null
+      },
+      "explorerUrl": "https://solscan.io/tx/1WspU7A2z2cE77UJqFNx9LatofjzY5GvD9nA4vMjWu2TuJhA9ctbkMXSbz7LvAHfCk22oUvw2GvEfJF31f4b9M?cluster=devnet",
+      "settlementLog": [
+        {
+          "timestamp": "2025-11-14T02:08:05.583Z",
+          "message": "Facilitator settlement confirmed",
+          "level": "info",
+          "data": {
+            "transactionSignature": "1WspU7A2z2cE77UJqFNx9LatofjzY5GvD9nA4vMjWu2TuJhA9ctbkMXSbz7LvAHfCk22oUvw2GvEfJF31f4b9M"
+          }
+        },
+        {
+          "timestamp": "2025-11-14T02:08:05.583Z",
+          "message": "Commission payment intent created",
+          "level": "info",
+          "data": {
+            "intentId": "d00f1ef4-cc35-45ec-bed1-d62173b20740",
+            "status": "awaiting_funds",
+            "transactionSigners": [
+              "CBH7QV7bBFCo8N3fEYNwzLwjx8M9M4TgkyAzLg5aBCan"
+            ]
+          }
+        },
+        {
+          "timestamp": "2025-11-14T02:08:08.440Z",
+          "message": "Commission payment intent executed successfully",
+          "level": "info",
+          "data": {
+            "intentId": "d00f1ef4-cc35-45ec-bed1-d62173b20740",
+            "signature": null
+          }
+        }
+      ]
+    }
   }
 ]

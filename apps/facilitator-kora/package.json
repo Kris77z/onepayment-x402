@@ -1,0 +1,18 @@
+{
+  "name": "@payagent/facilitator-kora",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/server.mjs",
+    "start": "node src/server.mjs"
+  },
+  "dependencies": {
+    "@solana/web3.js": "^1.98.4",
+    "bs58": "^6.0.0",
+    "dotenv": "^17.2.3",
+    "express": "^4.19.2",
+    "tweetnacl": "^1.0.3"
+  }
+}
+

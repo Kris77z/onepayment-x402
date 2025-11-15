@@ -14,6 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "@solana/web3.js": "^1.98.4",
+    "@sqds/grid": "^0.2.0",
     "bs58": "^6.0.0",
     "dotenv": "^17.2.3",
     "tweetnacl": "^1.0.3"

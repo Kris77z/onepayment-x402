@@ -6,15 +6,25 @@ interface FacilitatorResponse<T> {
   error?: unknown;
 }
 
+/**
+ * Verify 响应（与 facilitator 响应格式一致）
+ * 借鉴 PayAI Network facilitator 的标准化响应格式
+ */
 interface VerifyResponse {
   isValid: boolean;
-  error?: string;
+  invalidReason?: string; // 标准错误码（如 'invalid_signature', 'expired' 等）
+  error?: string; // 错误消息（用于调试）
 }
 
+/**
+ * Settle 响应（与 facilitator 响应格式一致）
+ * 借鉴 PayAI Network facilitator 的标准化响应格式
+ */
 interface SettleResponse {
-  status: string;
-  transactionSignature?: string;
-  error?: string;
+  status: 'settled' | 'error';
+  transactionSignature?: string; // 交易签名（成功时）
+  errorReason?: string; // 标准错误码（失败时）
+  error?: string; // 错误消息（用于调试）
 }
 
 export interface ProcessPaymentResult {
@@ -101,20 +111,30 @@ export async function processPaymentThroughFacilitator(paymentRequest: string): 
   const verifyResponse = await verifyPaymentRequest(paymentRequest);
 
   if (!verifyResponse.isValid) {
+    // 优先使用标准错误码，其次使用错误消息
+    const errorMessage = verifyResponse.invalidReason 
+      ? `验证失败: ${verifyResponse.invalidReason}${verifyResponse.error ? ` - ${verifyResponse.error}` : ''}`
+      : verifyResponse.error ?? 'Facilitator verification failed';
+    
     return {
       success: false,
       failureStage: 'verify',
-      error: verifyResponse.error ?? 'Facilitator verification failed'
+      error: errorMessage
     };
   }
 
   const settleResponse = await settlePaymentRequest(paymentRequest);
 
   if (settleResponse.status !== 'settled') {
+    // 优先使用标准错误码，其次使用错误消息
+    const errorMessage = settleResponse.errorReason
+      ? `结算失败: ${settleResponse.errorReason}${settleResponse.error ? ` - ${settleResponse.error}` : ''}`
+      : settleResponse.error ?? 'Facilitator returned non-settled status';
+    
     return {
       success: false,
       failureStage: 'settle',
-      error: settleResponse.error ?? 'Facilitator returned non-settled status'
+      error: errorMessage
     };
   }
 

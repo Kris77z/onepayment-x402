@@ -3,6 +3,7 @@ import { randomUUID } from 'crypto';
 import { getRateConfig } from '../config/rateConfig.js';
 import { getCachedRate, setCachedRate } from './cache.js';
 import { QuoteComputation, RateSnapshot } from './types.js';
+import { payFacilitatorFee } from '../services/agentPaymentService.js';
 
 let crossbarClient: CrossbarClient | null = null;
 let lastCrossbarUrl: string | null = null;
@@ -122,6 +123,20 @@ function normaliseTokenAmount(amount: number, currency: 'USDC' | 'USDT'): number
   return amount / Math.pow(10, decimals);
 }
 
+/**
+ * 触发 RateAgent 的 x402 微支付（异步执行，不阻塞报价返回）
+ */
+async function triggerAgentPayment(): Promise<void> {
+  const agentPaymentAmount = process.env.RATE_AGENT_PAYMENT_AMOUNT
+    ? Number.parseInt(process.env.RATE_AGENT_PAYMENT_AMOUNT, 10)
+    : 1000; // 默认 0.001 USDC (1000 原子单位)
+
+  // 异步执行支付，不阻塞报价返回
+  payFacilitatorFee(agentPaymentAmount).catch((error) => {
+    console.error('[RateAgent] Agent payment failed (non-blocking):', error);
+  });
+}
+
 export async function generateQuote(amount: number, currency: 'USDC' | 'USDT' = 'USDC'): Promise<QuoteComputation> {
   if (!Number.isFinite(amount) || amount <= 0) {
     throw new Error('Amount must be a positive number');
@@ -132,6 +147,13 @@ export async function generateQuote(amount: number, currency: 'USDC' | 'USDT' = 
 
   const baseUnits = normaliseTokenAmount(amount, currency);
   const quotedAmountUsd = Number((baseUnits * snapshot.rate).toFixed(6));
+
+  // 触发 Agent 支付（仅在非缓存命中时，避免重复支付）
+  // 注意：这里只在从 Switchboard 获取新汇率时支付，使用缓存时不支付
+  // 如果需要每次查询都支付，可以移除缓存检查
+  if (snapshot.rateSource === 'switchboard') {
+    triggerAgentPayment();
+  }
 
   return {
     quoteId: `pquote_${randomUUID()}`,

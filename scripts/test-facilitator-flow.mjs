@@ -27,7 +27,7 @@ const MERCHANT_ADDRESS = process.env.MERCHANT_SOLANA_ADDRESS;
 const FACILITATOR_PRIVATE_KEY = process.env.FACILITATOR_PRIVATE_KEY;
 const FACILITATOR_PUBLIC_KEY = process.env.FACILITATOR_PUBLIC_KEY;
 const RPC_URL = process.env.SOLANA_RPC_URL || 'https://api.devnet.solana.com';
-const CLIENT_KEYPAIR_PATH = process.env.CLIENT_KEYPAIR_PATH || path.resolve('test-client-keypair.json');
+const CLIENT_KEYPAIR_PATH = process.env.CLIENT_KEYPAIR_PATH || path.resolve(process.cwd(), 'test-client-keypair.json');
 const EXPORT_ONLY = process.argv.includes('--export-only') || process.argv.includes('--no-settle');
 const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:4000';
 const PAYMENT_SESSION_AMOUNT = Number.parseInt(process.env.PAYMENT_SESSION_AMOUNT ?? '10000000', 10);
@@ -233,11 +233,13 @@ function writePaymentRequestFile(sessionId, paymentRequest) {
 }
 
 function buildStructuredData(payload) {
+  // 使用与 facilitator 一致的 network 值
+  const network = process.env.NEXT_PUBLIC_NETWORK || 'solana-devnet';
   return {
     domain: {
       name: 'x402-solana-protocol',
       version: '1',
-      chainId: 'devnet',
+      chainId: network, // 使用与 facilitator 一致的 network
       verifyingContract: 'x402-sol',
     },
     types: {

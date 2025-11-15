@@ -95,6 +95,15 @@ export interface PaymentSessionOriginalRequest {
   quoteId: string;
 }
 
+export interface AgentPaymentState {
+  status: 'pending' | 'succeeded' | 'failed' | 'skipped';
+  transactionSignature?: string | null;
+  attemptedAt: string;
+  completedAt?: string;
+  errorMessage?: string;
+  amount: number; // 原子单位
+}
+
 export interface PaymentSession {
   id: string;
   amount: number;
@@ -114,6 +123,7 @@ export interface PaymentSession {
   transactionSignature?: string;
   failureReason?: string;
   settlement?: PaymentSettlement;
+  agentPayment?: AgentPaymentState | null; // RateAgent 的 x402 微支付状态
   auditLog: SettlementLogEntry[];
 }
 

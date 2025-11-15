@@ -1,28 +1,85 @@
-# Dependencies
+# Environment variables (NEVER commit)
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+
+# Private keys and keypairs
+*-keypair.json
+test-client-keypair.json
+rate-agent-keypair.json
+*.secret
+*.private
+
+# Node modules
 node_modules/
+**/node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+*.tsbuildinfo
 
 # Logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-.npm-cache/
+lerna-debug.log*
+facilitator-dev.log
 
-# OS metadata
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# OS
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
-# Env files
-.env
-.env.local
+# Temporary files
+*.tmp
+*.temp
+curl-settle-body.json
+*.cache
+.npm-cache/
+**/.npm-cache/
 
-# Build artifacts
-dist/
-.next/
-out/
+# Rust (for Kora)
+target/
+Cargo.lock
+**/target/
+**/Cargo.lock
 
-# Docs (保持本地不上传)
+# TypeScript
+*.tsbuildinfo
+
+# Testing
+coverage/
+.nyc_output/
+
+# Documentation (exclude entire docs directory)
 docs/
 
-# Local test keys
-test-client-keypair.json
+# Package manager lock files (project uses npm)
+pnpm-lock.yaml
+yarn.lock
 
+# Misc
+*.bak
+*.swp
+*~
