@@ -1,0 +1,113 @@
+name: Sync upstream x402 examples/fullstack/next
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+on:
+  schedule: [{ cron: "0 * * * *" }] # hourly
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Skip PR creation; run sanitize + verify only"
+        required: false
+        default: "false"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions: { contents: write, pull-requests: write }
+    env:
+      UPSTREAM_REPO: coinbase/x402
+      UPSTREAM_PATH: examples/typescript/fullstack/next
+      DRY_RUN: ${{ inputs.dry_run }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ensure required tools are available
+        run: |
+          set -euo pipefail
+          if ! command -v rsync >/dev/null 2>&1; then
+            (apt-get update && apt-get install -y rsync) || (sudo apt-get update && sudo apt-get install -y rsync)
+          fi
+
+      - name: Sparse clone upstream
+        run: |
+          git clone --depth=1 --filter=blob:none --sparse https://github.com/${UPSTREAM_REPO}.git upstream
+          cd upstream
+          git sparse-checkout set "${UPSTREAM_PATH}"
+          echo "UPSTREAM_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
+
+      - name: Resolve latest x402-next version from npm
+        run: |
+          set -euo pipefail
+          VERSION=$(npm view x402-next version || echo "0.0.0")
+          echo "X402_NEXT_VERSION=${VERSION}" >> $GITHUB_ENV
+
+      - name: Record resolved version in root package.json
+        run: |
+          node -e "const fs=require('fs');const p='package.json';const j=JSON.parse(fs.readFileSync(p,'utf8'));(j.config??={});j.config.x402NextVersion=process.env.X402_NEXT_VERSION;fs.writeFileSync(p,JSON.stringify(j,null,2));"
+
+      - name: Stage upstream into vendor folder
+        run: |
+          rm -rf vendor/upstream && mkdir -p vendor/upstream
+          rsync -a --delete upstream/${UPSTREAM_PATH}/ vendor/upstream/
+
+      - name: Sanitize & map into template (best-effort)
+        run: |
+          if [ -f scripts/sanitize.sh ]; then
+            chmod +x scripts/sanitize.sh
+            scripts/sanitize.sh "${UPSTREAM_PATH}" "${UPSTREAM_SHA}"
+          else
+            echo "No sanitize script found; skipping."
+          fi
+
+      - name: Verify env overrides preserved
+        run: |
+          set -euo pipefail
+          FILE="template/.env.example"
+          if [[ ! -f "$FILE" ]]; then
+            echo "Missing $FILE after sanitize step" >&2
+            exit 1
+          fi
+          grep -Eq '^NEXT_PUBLIC_FACILITATOR_URL=https://facilitator.payai.network$' "$FILE" || { echo "NEXT_PUBLIC_FACILITATOR_URL incorrect in $FILE" >&2; exit 1; }
+          grep -Eq '^NETWORK=solana-devnet$' "$FILE" || { echo "NETWORK incorrect in $FILE" >&2; exit 1; }
+          echo "Env overrides verified in $FILE."
+
+      - name: Inject x402-next version into template/package.json
+        run: |
+          node -e "const fs=require('fs');const p='template/package.json';if(fs.existsSync(p)){const j=JSON.parse(fs.readFileSync(p,'utf8'));const v=process.env.X402_NEXT_VERSION;const setVer=(obj)=>{if(!obj)return false; if(Object.prototype.hasOwnProperty.call(obj,'x402-next')){if(v!=='0.0.0'){obj['x402-next']='^'+v;} else {delete obj['x402-next'];} return true;} return false;};const changed=setVer(j.dependencies)||setVer(j.devDependencies);if(!changed && v!=='0.0.0'){(j.dependencies??={})['x402-next']='^'+v;}fs.writeFileSync(p,JSON.stringify(j,null,2));}"
+
+      - name: Determine if there are changes
+        run: |
+          # include untracked files in change detection
+          if git diff --quiet && git ls-files --others --exclude-standard --error-unmatch . >/dev/null 2>&1; then
+            echo "HAS_CHANGES=false" >> $GITHUB_ENV
+          else
+            echo "HAS_CHANGES=true" >> $GITHUB_ENV
+          fi
+
+      - name: Bump starter package version (patch)
+        if: ${{ env.HAS_CHANGES == 'true' && env.DRY_RUN != 'true' }}
+        run: |
+          node -e "const fs=require('fs');const p='package.json';const j=JSON.parse(fs.readFileSync(p,'utf8'));const v=j.version||'0.0.0';const parts=v.split('.').map(n=>parseInt(n,10));while(parts.length<3)parts.push(0);parts[2]=isNaN(parts[2])?0:parts[2]+1;j.version=parts.join('.');fs.writeFileSync(p,JSON.stringify(j,null,2));"
+
+      - name: Open PR with changes
+        if: ${{ env.HAS_CHANGES == 'true' && env.DRY_RUN != 'true' }}
+        uses: peter-evans/create-pull-request@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          commit-message: "chore(next): sync from ${UPSTREAM_REPO}@${{ env.UPSTREAM_SHA }}"
+          branch: chore/sync-upstream
+          title: "Sync upstream (fullstack/next) — ${{ env.UPSTREAM_SHA }}"
+          body: |
+            Auto-synced from https://github.com/${{ env.UPSTREAM_REPO }}
+            Path: ${{ env.UPSTREAM_PATH }}
+            SHA:  ${{ env.UPSTREAM_SHA }}
+
+      - name: Summary (dry-run)
+        if: ${{ env.DRY_RUN == 'true' }}
+        run: |
+          echo "Dry run completed. Env overrides verified and no PR was opened." | tee -a $GITHUB_STEP_SUMMARY

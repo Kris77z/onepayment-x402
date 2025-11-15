@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "paths": {
+      "@elizaos/core": ["./node_modules/@elizaos/core"],
+      "@your-alias/*": ["./src/*"]
+    },
+    "baseUrl": "./"
+  }
+}
