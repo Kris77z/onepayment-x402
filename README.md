@@ -135,7 +135,7 @@ graph TD
 
 ---
 
-## 3. Environment Checklist (Day 1)
+## 3. Environment Checklist
 
 1. **System dependencies**
    - Node.js 18+ (`node --version`).
@@ -164,7 +164,7 @@ graph TD
 
 ---
 
-## 4. Day 1: Grid × Facilitator Closed Loop
+## 4. Grid × Facilitator Closed Loop
 
 **Goal**: validate “Grid custody + gasless payment” with production-ready documentation.
 
@@ -259,7 +259,7 @@ This will:
 
 ---
 
-## 6. Day 3: Kora Facilitator Integration
+## 6. Kora Facilitator Integration
 
 > Goal: Use Kora to provide gasless x402 Facilitator, enabling `apps/x402-server` to use standard `.well-known/x402/*` routes for payment negotiation instead of simplified mocks. The flow aligns with official documentation. See Solana guide for example architecture.
 
@@ -327,31 +327,17 @@ This will:
 - `Failed to get supported payment kinds`: Facilitator not started correctly, or `.well-known/x402/supported-payment-kinds` returns 404. Check port conflicts and environment variables pointing to `apps/facilitator-kora`.
 - Kora RPC authentication failure: Check if `kora.toml` `auth` section enables API Key/HMAC. Add `KORA_API_KEY`, `KORA_HMAC_SECRET` to `.env` if needed and reference in Facilitator config.
 
-### 6.5 Documentation
+### 6.5 Key Technical Points
 
-- `docs/progress/day3-progress.md` records troubleshooting process and reminders to update environment variables before starting new 3000/3001/4000 processes.
-- Reference: Solana official "x402 Integration with Kora - Complete Demo Guide" provides full Kora + Facilitator + Protected API example flow.
-
----
-
-## 7. Front-end Baseline (shadcn plan)
-
-- **Framework**: Next.js (App Router) with shadcn/ui; React Query stitches API calls.
-- **Pages** (keep each file ≤ 200 lines):
-  1. `Landing / Dashboard`: order flow summary and Grid balance snapshot.
-  2. `Payment Flow`: buyer inputs amount → facilitator/Grid interaction → status updates.
-  3. `Admin` (optional): agent call history and custody logs.
-- **Data flow**:
-  - Fetch `PaymentSession` (amount, nonce, facilitator URL) from the API.
-  - Use Corbits SDK for client-side signing; post payload to the facilitator.
-  - Poll for settlement and confirm USDC arrival via Grid APIs.
-- **UX considerations**:
-  - Straightforward steps for non-technical buyers.
-  - Showcase the benefits of gasless payments and autonomous agent settlement.
+- **Kora RPC**: Rust-based service handling transaction signing and fee sponsorship. Configure via `kora.toml` and `signers.toml`.
+- **Facilitator Bridge**: Node.js service (`apps/facilitator-kora`) implements x402 protocol endpoints (`/verify`, `/settle`, `.well-known/x402/supported-payment-kinds`).
+- **Environment Variables**: Ensure `KORA_RPC_URL`, `KORA_PRIVATE_KEY`, `NEXT_PUBLIC_FACILITATOR_URL` are properly configured before starting services.
+- **Port Management**: Kora RPC (8080), Facilitator (3001), Business Service (3000), API (4000) must avoid conflicts.
+- **Reference**: Solana official "x402 Integration with Kora - Complete Demo Guide" provides full Kora + Facilitator + Protected API example flow.
 
 ---
 
-## 8. Documentation & Collaboration
+## 7. Documentation & Collaboration
 
 - Keep this README in sync with architecture, dependencies, APIs, and test plans.
 - Store detailed progress logs, demos, and reports under `docs/` or companion documents.
